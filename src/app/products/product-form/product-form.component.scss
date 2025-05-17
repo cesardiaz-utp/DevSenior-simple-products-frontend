@@ -1,0 +1,28 @@
+.product-form-container {
+  padding: 20px; 
+  display: flex;
+  justify-content: center;
+}
+
+mat-card {
+  width: 100%; 
+  max-width: 600px;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.error-snackbar {
+  background-color: #f44336;
+  color: white;
+}

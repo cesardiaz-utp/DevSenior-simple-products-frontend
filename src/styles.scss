@@ -1,1 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// Estilos globales para el cuerpo
+body {
+  margin: 0; // Elimina el margen por defecto del body
+  font-family: Roboto, "Helvetica Neue", sans-serif; // Usa la fuente de Material
+}
+
+html,
+body {
+  height: 100%;
+}
+
+// Opcional: Altura completa si necesitas layouts complejos
+
+
+/* Clase para empujar elementos en layouts flexbox (usada en mat-toolbar) */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Clase para notificaciones de error (puedes definirla aquí globalmente) */
+.error-snackbar {
+  background-color: #f44336 !important; // Usa !important si es necesario anular estilos de Material
+  color: white !important;
+}

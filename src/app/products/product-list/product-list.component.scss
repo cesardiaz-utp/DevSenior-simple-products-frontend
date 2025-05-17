@@ -1,0 +1,19 @@
+.product-list-container {
+  padding: 20px;
+}
+
+mat-card-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.mat-elevation-z8 {
+  width: 100%;
+}
+
+.error-snackbar {
+  background-color: #f44336; // Rojo Material
+  color: white;
+}
