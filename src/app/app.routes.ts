@@ -3,7 +3,8 @@ import { ProductFormComponent } from './products/product-form/product-form.compo
 import { ProductListComponent } from './products/product-list/product-list.component';
 
 export const routes: Routes = [
-  { path: '', component: ProductListComponent },
-  { path: 'new', component: ProductFormComponent },
-  { path: 'edit/:id', component: ProductFormComponent }
+  { path: '', redirectTo: 'products', pathMatch: 'full' },
+  { path: 'products', component: ProductListComponent },
+  { path: 'products/new', component: ProductFormComponent },
+  { path: 'products/edit/:id', component: ProductFormComponent }
 ];

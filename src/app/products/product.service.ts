@@ -8,7 +8,8 @@ import { Observable, of, throwError } from 'rxjs';
 })
 export class ProductService {
 
-  // private apiUrl = 'http://localhost:8080/api/products';
+  private apiUrl = 'http://localhost:8080/api/products';
+  private mocked = true; // Cambiar a false para usar el backend
 
   // Datos mock para usar antes de conectar el backend (opcional, útil para probar la UI)
   private mockProducts: Product[] = [
@@ -22,39 +23,49 @@ export class ProductService {
 
   // Obtener todos los productos
   getAllProducts(): Observable<Product[]> {
-    return of(this.mockProducts);
-    // return this.http.get<Product[]>(this.apiUrl); // Descomentar para llamar al backend
+    if (this.mocked) {
+      return of(this.mockProducts);
+    }
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
   getProductById(id: number): Observable<Product> {
-    const product = this.mockProducts.find(p => p.id === id);
-    return product ? of(product) : throwError(() => new Error('Product not found'));
-    // return this.http.get<Product>(`<span class="math-inline">\{this\.apiUrl\}/</span>{id}`); // Descomentar para llamar al backend
+    if (this.mocked) {
+      const product = this.mockProducts.find(p => p.id === id);
+      return product ? of(product) : throwError(() => new Error('Product not found'));
+    }
+    return this.http.get<Product>(`${this.apiUrl}/${id}`);
   }
 
   // Crear un nuevo producto
   createProduct(product: Product): Observable<Product> {
-    const newProduct = { ...product, id: this.nextMockId++ }; 
-    this.mockProducts.push(newProduct); 
-    return of(newProduct); 
-    // return this.http.post<Product>(this.apiUrl, product); // Descomentar para llamar al backend
+    if (this.mocked) {
+      const newProduct = { ...product, id: this.nextMockId++ };
+      this.mockProducts.push(newProduct);
+      return of(newProduct);
+    }
+    return this.http.post<Product>(this.apiUrl, product);
   }
 
   // Actualizar un producto existente
   updateProduct(product: Product): Observable<Product> {
-    const index = this.mockProducts.findIndex(p => p.id === product.id);
-    if (index > -1) {
-      this.mockProducts[index] = product;
-      return of(product);
-    } 
-    return throwError(() => new Error('Product not found for update'));
-    // return this.http.put<Product>(`{this.apiUrl}/{product.id}`, product); // Descomentar para llamar al backend
+    if (this.mocked) {
+      const index = this.mockProducts.findIndex(p => p.id === product.id);
+      if (index > -1) {
+        this.mockProducts[index] = product;
+        return of(product);
+      }
+      return throwError(() => new Error('Product not found for update'));
+    }
+    return this.http.put<Product>(`${this.apiUrl}/${product.id}`, product);
   }
 
   // Eliminar un producto
   deleteProduct(id: number): Observable<void> {
-    this.mockProducts = this.mockProducts.filter(p => p.id !== id);
-    return of(undefined);
-    // return this.http.delete<void>(`{this.apiUrl}/{id}`); // Descomentar para llamar al backend
+    if (this.mocked) {
+      this.mockProducts = this.mockProducts.filter(p => p.id !== id);
+      return of(undefined);
+    }
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }
